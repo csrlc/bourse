@@ -1,0 +1,2553 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bourses de la Relève Sportive - Aréna Régional Lareau</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="images/logo-arena.png">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --page-bg: rgb(29, 29, 27);
+            --content-bg: rgb(255, 255, 255);
+            --text-color: rgb(29, 29, 27);
+            --accent-color: rgb(241, 94, 104);
+            --border-color: rgb(222, 226, 230);
+            --input-bg: rgb(248, 249, 250);
+            --success-color: rgb(94, 204, 113);
+            --error-color: rgb(241, 94, 104);
+            --warning-color: rgb(243, 156, 18);
+            --calendar-invalid-bg: rgb(241, 94, 104);
+            --calendar-invalid-text: rgb(241, 94, 104);
+            --calendar-valid-bg: rgb(94, 204, 113);
+            --calendar-valid-text: rgb(94, 204, 113);
+            --calendar-hover-bg: rgb(52, 152, 219);
+            --calendar-hover-text: rgb(255, 255, 255);
+            --glow-color: rgba(241, 94, 104, 0.5);
+            --calendar-opacity: 0.5;
+        }
+
+        body {
+            background-color: var(--page-bg);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            user-select: none;
+        }
+
+        .scroll-btn {
+            position: fixed;
+            right: 20px;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
+
+        .scroll-btn:hover {
+            opacity: 1;
+            color: var(--calendar-hover-bg);
+            transform: scale(1.1);
+        }
+
+        .scroll-top {
+            top: 20px;
+        }
+
+        .scroll-bottom {
+            bottom: 20px;
+        }
+        
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1600px;
+            margin: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            background-color: var(--content-bg);
+            border-radius: 8px;
+            box-shadow: 0 0 15px 5px var(--glow-color);
+            overflow: hidden;
+            margin-bottom: 20px;
+            width: 80%;
+        }
+
+        .intro-section {
+             margin: 0;
+             display: flex;
+             flex-direction: column;
+             justify-content: space-between;
+        }
+
+        .survey-section {
+             margin: 0;
+        }
+
+        .sports-icons {
+             display: flex;
+             flex-wrap: wrap;
+             justify-content: center;
+             align-items: center;
+             padding: 20px;
+             gap: 15px;
+             margin-top: auto;
+             flex-grow: 1;
+        }
+         .sports-icons a {
+             text-decoration: none;
+             color: var(--accent-color);
+             opacity: 1;
+             transition: all 0.3s ease;
+             cursor: pointer;
+             display: block;
+         }
+         .sports-icons i {
+             font-size: 2.8em;
+             pointer-events: none;
+         }
+         .sports-icons a:hover {
+             color: var(--success-color);
+             transform: scale(1.1);
+         }
+
+         .alt-tooltip {
+             position: fixed;
+             background: rgba(0, 0, 0, 0.85);
+             color: white;
+             padding: 8px 12px;
+             border-radius: 6px;
+             font-size: 0.9rem;
+             pointer-events: none;
+             z-index: 1000;
+             opacity: 0;
+             transition: opacity 0.2s ease;
+             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+             max-width: 200px;
+             text-align: center;
+             backdrop-filter: blur(5px);
+             white-space: nowrap;
+             border: 1px solid #f0f0f0;
+         }
+
+         .alt-tooltip.visible {
+             opacity: 1;
+         }
+
+        @media (min-width: 1024px) {
+            body {
+                padding: 40px 7%;
+            }
+            .main-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: stretch;
+                gap: 6%;
+                margin: 0;
+                margin-bottom: 20px;
+                max-width: none;
+            }
+            .intro-section {
+                width: 47%;
+                margin-bottom: 20px;
+            }
+            .survey-section {
+                width: 47%;
+                margin-bottom: 20px;
+            }
+            .intro-content {
+                 flex-grow: 1;
+             }
+            .sports-icons {
+                  padding: 30px 10px;
+                  flex-wrap: wrap;
+                  justify-content: space-around;
+                  align-items: center;
+            }
+            .sports-icons i {
+                 font-size: 10vw;
+                 transition: all 0.3s ease;
+                 line-height: 1;
+                 margin: 25px;
+                 padding: 15px;
+                 width: auto;
+                 text-align: center;
+             }
+             .sports-icons i:hover {
+                color: var(--success-color);
+                transform: scale(1.1);
+            }
+        }
+
+        .section-header img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .section-content {
+            padding: 20px 30px 30px 30px;
+            user-select: text;
+        }
+        
+        .intro-content {
+            user-select: none;
+        }
+        
+        input, textarea, select {
+            user-select: auto;
+        }
+        
+        .intro-title {
+             font-family: 'Black Ops One', sans-serif;
+             color: var(--accent-color);
+             font-size: 2.8em;
+             text-align: center;
+             margin-bottom: 25px;
+             font-weight: 400;
+             letter-spacing: 1px;
+        }
+
+
+        .intro-content p, .intro-content li {
+             font-size: 1.1rem;
+        }
+
+        .survey-section .section-content h2 {
+            font-family: 'Black Ops One', sans-serif;
+            color: var(--accent-color);
+            font-weight: 400;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        .survey-section .section-content h2.title-valid {
+            color: var(--success-color);
+        }
+
+        .section-content h3 {
+             font-weight: bold;
+             margin-top: 1.5em;
+             margin-bottom: 0.5em;
+             font-size: 1.2rem;
+        }
+
+        .section-content p, .section-content li {
+            margin-bottom: 1em;
+            line-height: 1.6;
+        }
+        .section-content ol {
+            list-style-type: decimal;
+            list-style-position: inside;
+            padding-left: 5px;
+        }
+        .section-content ol li {
+             margin-bottom: 0.8em;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 30px 0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .form-group label.question-title {
+            font-family: 'Black Ops One', sans-serif;
+            font-size: 1.4em;
+            color: var(--accent-color);
+            text-decoration: underline;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        .form-group label.question-title.title-valid {
+            color: var(--success-color);
+        }
+        .form-group label.question-description {
+            font-weight: normal;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background-color: var(--input-bg);
+            transition: all 0.2s ease-in-out;
+            color: var(--text-color);
+        }
+         .form-group input[type="date"] {
+             cursor: text;
+         }
+         
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            border: 2px solid var(--border-color);
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(241, 94, 104, 0.2);
+            background-color: white;
+        }
+        
+        .form-group textarea.focus-blue {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-group input.valid,
+        .form-group select.valid,
+        .form-group textarea.valid {
+            border-color: var(--success-color);
+            box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+        }
+        .form-group input.valid:focus,
+        .form-group select.valid:focus,
+        .form-group textarea.valid:focus {
+            border-color: var(--success-color);
+            box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+        }
+
+        .form-group input.invalid,
+        .form-group select.invalid,
+        .form-group textarea.invalid {
+            border-color: var(--error-color);
+            box-shadow: 0 0 0 2px rgba(241, 94, 104, 0.3);
+        }
+         
+        .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: crosshair;
+        }
+  
+        #calendarLink {
+            cursor: pointer;
+            padding: 0 10px;
+            color: #555;
+        }
+        #calendarLink:hover {
+            color: var(--calendar-hover-bg);
+        }
+
+        .dob-calendar-popup {
+            display: none;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 300px;
+            background: var(--content-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            z-index: 100;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            padding: 10px;
+        }
+        .dob-calendar-popup.active {
+            display: block;
+        }
+        .dob-calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .dob-calendar-nav button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .dob-calendar-nav button:hover {
+            background-color: #f0f0f0;
+        }
+        #dob-current-display {
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+        #dob-current-display:hover {
+            color: var(--calendar-hover-bg);
+        }
+        .dob-grid {
+            display: grid;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .dob-grid.day-view {
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .dob-grid.year-view,
+        .dob-grid.month-view {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .dob-cell {
+            padding: 8px 5px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            text-align: center;
+            transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+        }
+        .dob-day-header {
+            font-weight: bold;
+            color: #555;
+            font-size: 0.8em;
+            padding-bottom: 5px;
+            cursor: default;
+        }
+        .dob-cell.empty {
+            background: none;
+            cursor: default;
+        }
+        .dob-cell.invalid {
+            background-color: var(--calendar-invalid-bg);
+            color: var(--calendar-hover-text);
+            opacity: var(--calendar-opacity);
+            cursor: not-allowed;
+        }
+        .dob-cell.invalid span {
+            opacity: 1;
+        }
+        .dob-cell.valid {
+            background-color: var(--calendar-valid-bg);
+            color: var(--calendar-hover-text);
+            opacity: var(--calendar-opacity);
+            cursor: crosshair;
+        }
+        .dob-cell.valid span {
+            opacity: 1;
+        }
+        .dob-cell.valid:hover,
+        .dob-cell.valid:focus {
+            background-color: var(--calendar-hover-bg);
+            color: var(--calendar-hover-text);
+            opacity: 1;
+        }
+        .dob-cell.valid:hover span,
+        .dob-cell.valid:focus span {
+            color: var(--calendar-hover-text);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--content-bg);
+            margin: auto;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .modal-close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+            color: var(--text-color);
+        }
+        
+        .modal-calendars {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .calendar {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+        .calendar-grid div {
+            padding: 8px 5px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .day-header {
+            font-weight: bold;
+            color: #555;
+            font-size: 0.8em;
+            padding-bottom: 10px;
+            cursor: default;
+        }
+        .day-cell {
+            border: 1px solid transparent;
+            transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+        }
+
+        .day-cell.other-month {
+            opacity: 0.3;
+        }
+
+        .day-cell.not-highlighted {
+            background-color: var(--calendar-invalid-bg);
+            color: var(--calendar-hover-text);
+            opacity: var(--calendar-opacity);
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+        .day-cell.not-highlighted span {
+            opacity: 1;
+        }
+
+        .day-cell.highlighted {
+            background-color: var(--calendar-valid-bg);
+            color: var(--calendar-hover-text);
+            opacity: var(--calendar-opacity);
+            font-weight: bold;
+            cursor: check;
+        }
+        .day-cell.highlighted span {
+            opacity: 1;
+        }
+
+        #calendarEvent {
+            cursor: pointer;
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        #calendarEvent:hover {
+            color: var(--calendar-hover-bg);
+        }
+
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: -2px;
+            right: 5px;
+            z-index: 5;
+            background-color: rgba(241, 94, 104, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border: 1px solid var(--error-color);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-align: left;
+            white-space: normal;
+            max-width: calc(100% - 10px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+        }
+        
+        .form-group textarea ~ .tooltip {
+             top: 0;
+        }
+
+        .form-group div > input#candidatDob ~ .tooltip {
+              top: -34px;
+        }
+
+        .tooltip::after {
+            content: none;
+        }
+
+        .form-group input.invalid ~ .tooltip,
+        .form-group textarea.invalid ~ .tooltip,
+        .form-group div > input#candidatDob.invalid ~ .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+         .char-counter {
+            text-align: right;
+            font-size: 0.8em;
+            color: #777;
+            margin-top: 3px;
+         }
+         .char-counter.limit-near { color: var(--warning-color); }
+         .char-counter.limit-exceeded { color: var(--error-color); font-weight: bold; }
+
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .btn {
+            padding: 12px 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+            white-space: nowrap;
+            width: 100%;
+        }
+
+        .btn-send {
+            background-color: var(--page-bg);
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #ccc;
+            border-color: #aaa;
+            color: #666;
+        }
+
+        .btn-send:hover:not(:disabled) {
+            background-color: var(--accent-color);
+            color: var(--page-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-send:active:not(:disabled) {
+             transform: scale(0.98) translateY(0px);
+             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            display: grid;
+            justify-content: space-between;
+            align-items: center;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px 0;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        footer .footer-logos-container {
+            display: relative;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        footer .footer-logos-left,
+        footer .footer-logos-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-logos-left {
+            justify-content: flex-start;
+            padding-left: 15px; 
+        }
+
+        footer .footer-logos-right {
+            justify-content: flex-end;
+            padding-right: 15px;
+        }
+
+        .footer-content-center {
+            text-align: center;
+            possition: relative;
+            align-items: center;
+            left: 50%;
+        }
+        
+        .footer-text {
+            color: var(--accent-color);
+        }
+        
+        footer .footer-logo-link {
+            display: inline-block;
+            line-height: 0;
+            transition: transform 0.2s ease;
+        }
+        footer .footer-logo-link:hover {
+            transform: scale(1.1);
+            color: var(--calendar-hover-bg);
+        }
+        footer .footer-logo-link img {
+            max-height: 30px;
+            width: auto;
+            vertical-align: middle;
+        }
+        footer .footer-logo-link i.fa-facebook {
+            font-size: 28px;
+            color: #eee;
+            vertical-align: middle;
+            transition: color 0.2s ease;
+        }
+        footer .footer-logo-link:hover i.fa-facebook {
+            color: var(--calendar-hover-bg);
+        }
+        
+        footer a {
+            color: #eee;
+            cursor: pointer;
+        }
+        footer a:hover {
+            color: var(--calendar-hover-bg);
+            text-decoration: underline;             
+        }
+        footer span.clickable-date {
+            cursor: pointer;
+            text-decoration: underline;
+            color: #eee;
+        }
+        footer span.clickable-date:hover {
+            color: var(--calendar-hover-bg);
+            text-decoration: underline;
+        }
+        footer .footer-logo {
+            display: block;
+            margin: 15px auto 0;
+            width: 100px;
+            height: auto;
+            transition: transform 0.2s ease;
+        }
+        footer .footer-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .autocomplete-container {
+            position: relative;
+        }
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            z-index: 99;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .autocomplete-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .autocomplete-item:hover, .autocomplete-item.active {
+            background-color: var(--success-color);
+        }
+        .autocomplete-item strong {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 1080px) {
+            .modal-content {
+                flex-direction: column;
+                width: 90%;
+                max-height: 70vh;
+            }
+            .content-section {
+                margin-bottom: 32px !important;
+                width: 90%;
+            }
+        }
+
+
+         @media (max-width: 720px) {
+              body {
+                   padding: 10px;
+              }
+              .main-container {
+                   margin: 10px auto;
+              }
+             .content-section {
+                 margin-bottom: 32px !important;
+                 width: 90%;
+             }
+             .section-content {
+                 padding: 15px 20px 20px 20px;
+             }
+             .intro-title {
+                  font-size: 2em;
+             }
+             .intro-content p, .intro-content li {
+                  font-size: 1rem;
+             }
+              .survey-section .section-content h2 {
+                   font-size: 1.5em;
+              }
+              .form-group label.question-title {
+                   font-size: 1.3em;
+              }
+             .button-grid {
+                  grid-template-columns: 1fr;
+             }
+              .sports-icons i {
+                  font-size: 2.5em;
+              }
+               .btn {
+                   font-size: 1rem;
+                   white-space: normal;
+               }
+
+         }
+
+         body { animation: bodyFadeIn 0.5s ease-out; }
+         @keyframes bodyFadeIn {
+             from { opacity: 0; }
+             to { opacity: 1; }
+         }
+    </style>
+</head>
+<body>
+    
+    <i class="fas fa-circle-arrow-up scroll-btn scroll-top" onclick="scrollToTop()"></i>
+    
+    <i class="fas fa-circle-arrow-down scroll-btn scroll-bottom" onclick="scrollToBottom()"></i>
+    
+    <div class="main-container">
+        
+        <section class="content-section intro-section">
+            <header class="section-header">
+                <img src="images/header-intro.png" alt="Bourses de la Relève Sportive"
+                     onerror="this.style.backgroundColor='var(--gray)'; this.alt='Erreur image header intro';">
+            </header>
+            <div class="section-content intro-content">
+                <h1 class="intro-title">CONCOURS JEUNESSE</h1>
+                <p>Afin de soutenir la relève de la MRC des Jardins-de-Napierville, l'aréna régional Lareau de concert avec Desjardins remettra huit bourses de quatre cents dollars chacune ainsi que quatre bourses de deux cents dollars chacune en soutien à la relève sportive à de jeunes sportifs et athlètes des municipalités participantes au financement de l'aréna régional Lareau, soit Napierville, Saint-Cyprien-de-Napierville, Hemmingford (canton), Saint-Bernard-de-Lacolle, Saint-Paul-de-l'île-aux-Noix, Saint-Blaise-sur-Richelieu, Saint-Jacques-le-Mineur et Saint-Valentin.</p>
+                <hr>
+                <h3>Critères de sélection :</h3>
+                <p>Les bourses de soutien de la relève sportive sont destinées à :</p>
+                <ol>
+                    <li>Des athlètes qui pratiquent n'importe quel sport;</li>
+                    <li>Âgé(e)s entre huit et dix-sept ans;</li>
+                    <li>Ayant comme résidence soit Napierville, Saint-Cyprien-de-Napierville, Hemmingford (canton), Saint-Bernard-de-Lacolle, Saint-Paul-de-l'île-aux-Noix, Saint-Blaise-sur-Richelieu, Saint-Jacques-le-Mineur ou Saint-Valentin. Une bourse sera accordée à un athlète résident dans une des municipalités participantes au financement de l'aréna régionale Lareau.</li>
+                    <li>L'aréna régionale Lareau tentera de remettre une bourse par sport représenté et tentera également de remettre une bourse par jeune par municipalité participante à son financement. En cas d'impossibilité due à des absences dans les candidatures proposées, l'aréna régionale Lareau se réserve le droit de donner une bourse à des athlètes exerçant un sport et provenant d'une des municipalités déjà représentées. De plus, quatre bourses de deux cents dollars seront accordées aux athlètes ayant soumis leur candidature via ce questionnaire - sondage.</li>
+                </ol>
+                <p style="margin-top: 2em; font-style: italic;">Ce sera peut-être à vous la chance, qui sait?</p>
+            </div>
+             <div class="sports-icons">
+                 <a href="https://www.google.com/search?q=Hockey+description" target="_blank" rel="noopener noreferrer"><i alt="Hockey" class="fas fa-hockey-puck" title="Hockey"></i></a>
+                 <a href="https://www.google.com/search?q=Football+description" target="_blank" rel="noopener noreferrer"><i alt="Football" class="fa-solid fa-football" title="Football"></i></a>
+                 <a href="https://www.google.com/search?q=Patinage+Artistique+description" target="_blank" rel="noopener noreferrer"><i alt="Patinage Artistique" class="fas fa-person-skating" title="Patinage Artistique"></i></a>
+                 <a href="https://www.google.com/search?q=Soccer+description" target="_blank" rel="noopener noreferrer"><i alt="Soccer" class="fas fa-futbol" title="Soccer"></i></a>
+                 <a href="https://www.google.com/search?q=Ballon-balais+description" target="_blank" rel="noopener noreferrer"><i alt="Ballon-balais" class="fa-solid fa-broom-ball" title="Ballon-balais"></i></a>
+                 <a href="https://www.google.com/search?q=Basketball+description" target="_blank" rel="noopener noreferrer"><i alt="Basketball" class="fas fa-basketball-ball" title="Basketball"></i></a>
+                 <a href="https://www.google.com/search?q=Natation+description" target="_blank" rel="noopener noreferrer"><i alt="Natation" class="fas fa-person-swimming" title="Natation"></i></a>
+                 <a href="https://www.google.com/search?q=Volleyball+description" target="_blank" rel="noopener noreferrer"><i alt="Volleyball" class="fas fa-volleyball-ball" title="Volleyball"></i></a>
+                 <a href="https://www.google.com/search?q=Baseball+description" target="_blank" rel="noopener noreferrer"><i alt="Baseball" class="fas fa-baseball-bat-ball" title="Baseball"></i></a>
+                 <a href="https://www.google.com/search?q=Compétition+description" target="_blank" rel="noopener noreferrer"><i alt="Compétition" class="fa-solid fa-medal" title="Gagnant"></i></a>
+             </div>
+        </section>
+
+        <section class="content-section survey-section">
+            <header class="section-header">
+                <img src="images/header-survey.png" alt="Bourses de la Relève Sportive"
+                     onerror="this.style.backgroundColor='var(--gray)'; this.alt='Erreur image header sondage';">
+            </header>
+            <div class="section-content">
+                <form id="bourseSurveyForm" novalidate>
+                    <h2 data-section-id="candidat-section">Informations du ou de la candidate</h2>
+                    <div class="form-group">
+                        <label for="candidatNom">Nom du ou de la candidate :</label>
+                        <input type="text" id="candidatNom" name="candidatNom" data-section="candidat-section" required>
+                        <div class="tooltip">Nom complet requis (avec un espace)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidatVille">Ville :</label>
+                        <input type="text" id="candidatVille" name="candidatVille" list="villes-list" data-section="candidat-section" required>
+                        <div class="tooltip">Ville requise (doit être dans la liste)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidatTel">Téléphone :</label>
+                        <input type="tel" id="candidatTel" name="candidatTel" placeholder="450-245-0000" data-section="candidat-section" required>
+                         <div class="tooltip">Téléphone requis (format ###-###-####)</div>
+                    </div>
+                    <div class="form-group w-full">
+                        <label for="candidatDob">Date de naissance :</label>
+                        <div style="display: flex; align-items: center; position: relative;">
+                            <input type="text" id="candidatDob" name="candidatDob" placeholder="JJ/MM/AAAA" data-section="candidat-section" required style="flex: 1;">
+                            <div class="tooltip candidatDob">Le candidat doit avoir entre 8 et 17 ans durant l'événement (27 oct - 21 nov 2025)</div>
+                            <a id="calendarLink" title="Choisir une date">
+                                <i class="fas fa-calendar-alt fa-lg"></i>
+                            </a>
+                            <div id="dob-calendar-popup" class="dob-calendar-popup">
+                                <div class="dob-calendar-nav">
+                                    <button id="dob-prev-btn" title="Précédent">&lt;</button>
+                                    <span id="dob-current-display" title="Changer la vue">2017</span>
+                                    <button id="dob-next-btn" title="Suivant">&gt;</button>
+                                </div>
+                                <div id="dob-calendar-grid" class="dob-grid">
+                                </div>
+                            </div>                
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="candidatSport">Sport pratiqué :</label>
+                        <input type="text" id="candidatSport" name="candidatSport" list="sports-list" data-section="candidat-section" required>
+                        <div class="tooltip">Sport requis (doit être dans la liste)</div>
+                    </div>
+
+                    <hr>
+
+                    <h2 data-section-id="parent-section">Informations du Parent Responsable</h2>
+                    <div class="form-group">
+                        <label for="parentNom">Nom du parent responsable :</label>
+                        <input type="text" id="parentNom" name="parentNom" data-section="parent-section" required>
+                        <div class="tooltip">Nom complet requis (avec un espace)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentVille">Ville :</label>
+                        <input type="text" id="parentVille" name="parentVille" list="villes-list" data-section="parent-section" required>
+                         <div class="tooltip">Ville requise (doit être dans la liste)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentTel">Téléphone :</label>
+                        <input type="tel" id="parentTel" name="parentTel" placeholder="450-245-0000" data-section="parent-section" required>
+                         <div class="tooltip">Téléphone requis (format ###-###-####)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentLien">Lien avec le ou la candidate :</label>
+                        <input type="text" id="parentLien" name="parentLien" data-section="parent-section" required>
+                        <div class="tooltip">Lien parental ou tutoral requis</div>
+                    </div>
+
+                    <hr>
+
+                    <h2 data-section-id="questions-section">Questions au ou à la Candidate</h2>
+
+                    <div class="form-group">
+                        <label for="qSport" class="question-title" data-section="questions-section">DESCRIPTION DE VOTRE SPORT</label>
+                        <label for="qSport" class="question-description">Parlez-nous de votre sport. Par exemple, faites-vous partie d'une équipe, d'une troupe ou d'un club? Participez-vous à des compétitions, à des concours ou à des spectacles? Combien de temps y consacrez-vous en moyenne? Combien d'heures cela représente-t-il dans votre horaire hebdomadaire?</label>
+                        <textarea id="qSport" name="qSport" minlength="20" maxlength="500" data-section="questions-section" required></textarea>
+                        <div class="char-counter"><span id="qSportCount">0</span> / 500</div>
+                         <div class="tooltip">Réponse requise (minimum 20 caractères)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qAmbitions" class="question-title" data-section="questions-section">VOS AMBITIONS ET OBJECTIFS</label>
+                        <label for="qAmbitions" class="question-description">Parlez-nous de vos rêves, de vos ambitions, de vos projets, à court ou à long terme. Avez-vous des plans pour les prochaines années? Quels sont vos objectifs principaux ou secondaire par rapport au sport que vous pratiquez?</label>
+                        <textarea id="qAmbitions" name="qAmbitions" minlength="20" maxlength="500" data-section="questions-section" required></textarea>
+                        <div class="char-counter"><span id="qAmbitionsCount">0</span> / 500</div>
+                         <div class="tooltip">Réponse requise (minimum 20 caractères)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qFierte" class="question-title" data-section="questions-section">FIERTÉS ET RÉSULTATS</label>
+                        <label for="qFierte" class="question-description">Qu'est-ce qui vous procure de la fierté dans votre parcours sportif? Partagez-nous vos résultats importants au cours de votre parcours ou bien au cours de la dernière année.</label>
+                        <textarea id="qFierte" name="qFierte" minlength="20" maxlength="500" data-section="questions-section" required></textarea>
+                        <div class="char-counter"><span id="qFierteCount">0</span> / 500</div>
+                         <div class="tooltip">Réponse requise (minimum 20 caractères)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qBesoins" class="question-title" data-section="questions-section">VOS BESOINS</label>
+                        <label for="qBesoins" class="question-description">Pourquoi cette bourse vous aiderait-elle dans la poursuite de la pratique sportive que vous exercez? Partagez-nous les dépenses et les sacrifices reliés à la pratique de votre sport. Qu'est-ce que cela représente par rapport à l'ensemble de votre parcours ou bien par rapport à une année?</label>
+                        <textarea id="qBesoins" name="qBesoins" minlength="20" maxlength="500" data-section="questions-section" required></textarea>
+                        <div class="char-counter"><span id="qBesoinsCount">0</span> / 500</div>
+                         <div class="tooltip">Réponse requise (minimum 20 caractères)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qAutres" class="question-title" style="text-decoration: none;">AUTRES COMMENTAIRES <span style="font-weight:normal; font-style:italic; font-size: 0.9em; color: #555;">(Facultatif)</span></label>
+                        <label for="qAutres" class="question-description">Partagez-nous tout autre commentaire pertinent en lien avec le sport que vous pratiquez ou bien les bénéfices que vous pourriez vous offrir si jamais vous étiez l'un des gagnants cette année.</label>
+                        <textarea id="qAutres" name="qAutres" maxlength="500"></textarea>
+                        <div class="char-counter"><span id="qAutresCount">0</span> / 500</div>
+                    </div>
+
+                    <div class="button-grid">
+                        <button type="button" id="btnSend" class="btn btn-send">
+                            <i class="fas fa-paper-plane"></i> Soumettre
+                        </button>
+                    </div>
+                </form>
+                 <div id="feedbackMessage" class="mt-4 p-3 rounded text-center" style="display: none;"></div>
+            </div>
+        </section>
+    </div>
+
+    <div id="calendarModal" class="modal-overlay">
+        <div class="modal-content">
+            <span id="closeCalendarModalBtn" class="modal-close">&times;</span>
+            <h2 class="text-2xl font-bold text-center mb-4" style="color: var(--error-color);">Période de l'événement</h2>
+            <p class="text-center mb-4">Dates de l'événement (27 oct - 21 nov 2025)</p>
+            <div class="modal-calendars">
+                <div id="calendarOct" class="calendar"></div>
+                <div id="calendarNov" class="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <datalist class="autocomplete-items" id="sports-list">
+        <option value="Accrobranche">
+        <option value="Acrosport">
+        <option value="Aerobic">
+        <option value="Aéromodélisme">
+        <option value="Aérostation">
+        <option value="Agility">
+        <option value="Aikido">
+        <option value="Airsoft">
+        <option value="Alpinisme">
+        <option value="Apnée">
+        <option value="Aquabike">
+        <option value="Aquagym">
+        <option value="Arts du cirque">
+        <option value="Athlétisme">
+        <option value="Aviation">
+        <option value="Aviron">
+        <option value="Babyfoot">
+        <option value="Badminton">
+        <option value="Ballon-balais">
+        <option value="Ball-Trap">
+        <option value="Bandy">
+        <option value="Base jump">
+        <option value="Baseball">
+        <option value="Basketball">
+        <option value="Beach soccer">
+        <option value="Beach tennis">
+        <option value="Beach volley">
+        <option value="Béhourd">
+        <option value="Biathlon">
+        <option value="Billard">
+        <option value="BMX">
+        <option value="Bobsleigh">
+        <option value="Boccia">
+        <option value="Bodyboard">
+        <option value="Bodybuilding">
+        <option value="Boomerang">
+        <option value="Bouzkachi">
+        <option value="Bowling">
+        <option value="Boxe">
+        <option value="Boxe anglaise">
+        <option value="Boxe chinoise">
+        <option value="Boxe française">
+        <option value="Boxe thaïlandaise">
+        <option value="Bras de fer">
+        <option value="Bridge">
+        <option value="Caber">
+        <option value="Calcio florentin">
+        <option value="Canicross">
+        <option value="Canne de combat">
+        <option value="Canoë">
+        <option value="Canoë-kayak">
+        <option value="Canyoning">
+        <option value="Canyonisme">
+        <option value="Capoeira">
+        <option value="Carrom">
+        <option value="Catch">
+        <option value="Chanbara">
+        <option value="Char à voile">
+        <option value="Chase tag">
+        <option value="Cheerleading">
+        <option value="Cirque">
+        <option value="Claquettes">
+        <option value="Combat">
+        <option value="Corde à sauter">
+        <option value="Course">
+        <option value="Course à pied">
+        <option value="Course aérienne">
+        <option value="Course camarguaise">
+        <option value="Course d'obstacles">
+        <option value="Course d'orientation">
+        <option value="Course de cote">
+        <option value="Course de drones">
+        <option value="Course landaise">
+        <option value="Cricket">
+        <option value="Croquet">
+        <option value="Cross training">
+        <option value="Cross-country">
+        <option value="Crosse">
+        <option value="Crossfit">
+        <option value="Curling">
+        <option value="Cyclisme">
+        <option value="Cyclisme artistique">
+        <option value="Cyclisme sur piste">
+        <option value="Cyclisme sur route">
+        <option value="Cyclo cross">
+        <option value="Cyclotourisme">
+        <option value="Danse">
+        <option value="Danse africaine">
+        <option value="Danse classique">
+        <option value="Danse contemporaine">
+        <option value="Danse country">
+        <option value="Danse indienne">
+        <option value="Danse orientale">
+        <option value="Danse rock">
+        <option value="Danse sportive">
+        <option value="Danse sur glace">
+        <option value="Décathlon">
+        <option value="Deltaplane">
+        <option value="Disc golf">
+        <option value="Dragon boat">
+        <option value="Dragster">
+        <option value="E-sport">
+        <option value="Echecs">
+        <option value="Enduro">
+        <option value="Equitation">
+        <option value="Escalade">
+        <option value="Escrime">
+        <option value="Extreme Football League">
+        <option value="Fierljeppen">
+        <option value="Fitminton">
+        <option value="Fitness">
+        <option value="Flag">
+        <option value="Flamenco">
+        <option value="Fléchettes">
+        <option value="Floorball">
+        <option value="Football">
+        <option value="Football américain">
+        <option value="Football australien">
+        <option value="Footgolf">
+        <option value="Footing">
+        <option value="Footpool">
+        <option value="Force athlétique">
+        <option value="Full contact">
+        <option value="Funboard">
+        <option value="Futsal">
+        <option value="Giraviation">
+        <option value="Golf">
+        <option value="Gouren">
+        <option value="Grappling">
+        <option value="Gymkhana">
+        <option value="Gymnastique">
+        <option value="Gymnastique artistique">
+        <option value="Gymnastique rythmique">
+        <option value="Haltérophilie">
+        <option value="Handball">
+        <option value="Handisport">
+        <option value="Hapkido">
+        <option value="Heptathlon">
+        <option value="Hip hop">
+        <option value="Hockey">
+        <option value="Hockey subaquatique">
+        <option value="Hockey sur gazon">
+        <option value="Hockey sur glace">
+        <option value="Horse ball">
+        <option value="Hurling">
+        <option value="Iaïdo">
+        <option value="Ice cross">
+        <option value="Indiaca">
+        <option value="Indycar">
+        <option value="Jetski">
+        <option value="Jett kune do">
+        <option value="Jianzi">
+        <option value="Jodo">
+        <option value="Jorkyball">
+        <option value="Joutes">
+        <option value="Ju-Jitsu">
+        <option value="Judo">
+        <option value="Kabaddi">
+        <option value="Kalarippayatt">
+        <option value="Kali Arnis Eskrima">
+        <option value="Karaté">
+        <option value="Karting">
+        <option value="Kayak">
+        <option value="Kempo">
+        <option value="Kendo">
+        <option value="Kenjutsu">
+        <option value="Kick boxing">
+        <option value="Kin ball">
+        <option value="Kitesurf">
+        <option value="Kobudo">
+        <option value="Korfbal">
+        <option value="Krav-maga">
+        <option value="Kung fu">
+        <option value="Kyokushinkai">
+        <option value="Kyudo">
+        <option value="Lancer du javelot">
+        <option value="Lancer du marteau">
+        <option value="Lancer du poids">
+        <option value="Lawn bowl">
+        <option value="Luge">
+        <option value="Lutte">
+        <option value="Marathon">
+        <option value="Marche">
+        <option value="Marche aquatique">
+        <option value="Marche athlétique">
+        <option value="Marche nordique">
+        <option value="Marche sportive">
+        <option value="MMA">
+        <option value="Monocycle">
+        <option value="Moto">
+        <option value="Moto cross">
+        <option value="Moto-ball">
+        <option value="Motoneige">
+        <option value="Mountainboard">
+        <option value="Musculation">
+        <option value="Naginata">
+        <option value="Natation">
+        <option value="Natation synchronisée">
+        <option value="Netball">
+        <option value="Ninjitsu">
+        <option value="Nunchaku">
+        <option value="Octathlon">
+        <option value="Omnikin">
+        <option value="Paddleball">
+        <option value="Padel">
+        <option value="Paintball">
+        <option value="Pancrace">
+        <option value="Parachutisme">
+        <option value="Paramoteur">
+        <option value="Parapente">
+        <option value="Parkour">
+        <option value="Patinage">
+        <option value="Patinage artistique">
+        <option value="Patinage de vitesse">
+        <option value="Pêche">
+        <option value="Pelote basque">
+        <option value="Pelote valencienne">
+        <option value="Pencak-Silat">
+        <option value="Pentathlon">
+        <option value="Pesäpallo">
+        <option value="Pétanque">
+        <option value="Peteca">
+        <option value="Pilates">
+        <option value="Ping pong">
+        <option value="Planche à voile">
+        <option value="Plongée">
+        <option value="Plongeon">
+        <option value="Pole dance">
+        <option value="Polo">
+        <option value="Qi gong">
+        <option value="Quad">
+        <option value="Quilles">
+        <option value="Qwan Ki Do">
+        <option value="Raffa volo">
+        <option value="Rafting">
+        <option value="Ragga">
+        <option value="Raid">
+        <option value="Rallycross">
+        <option value="Rallye">
+        <option value="Randonnée">
+        <option value="Rink hockey">
+        <option value="Rock">
+        <option value="Rodéo">
+        <option value="Roller">
+        <option value="Roller Derby">
+        <option value="Rugby">
+        <option value="Rugby subaquatique">
+        <option value="Salsa">
+        <option value="Samba">
+        <option value="Sambo">
+        <option value="Sarbacane">
+        <option value="Saut à la perche">
+        <option value="Saut en longueur">
+        <option value="Sauvetage">
+        <option value="Self défense">
+        <option value="Sepak takraw">
+        <option value="Skateboard">
+        <option value="Skeleton">
+        <option value="Ski">
+        <option value="Ski acrobatique">
+        <option value="Ski alpin">
+        <option value="Ski de fond">
+        <option value="Ski nautique">
+        <option value="Skicross">
+        <option value="Slackline">
+        <option value="Slamball">
+        <option value="Snorkeling">
+        <option value="Snowboard">
+        <option value="Snowkite">
+        <option value="Softball">
+        <option value="Speed riding">
+        <option value="Spéléologie">
+        <option value="Spinning">
+        <option value="Squash">
+        <option value="Step">
+        <option value="Stretching">
+        <option value="Sumo">
+        <option value="Surf">
+        <option value="Taekwondo">
+        <option value="Taï chi">
+        <option value="Tambourin">
+        <option value="Tango">
+        <option value="Tchoukball">
+        <option value="Tennis">
+        <option value="Tennis de table">
+        <option value="Teqball">
+        <option value="Tir">
+        <option value="Tir à l'arc">
+        <option value="Tractor pulling">
+        <option value="Trail">
+        <option value="Traîneaux">
+        <option value="Trampoline">
+        <option value="Trapèze">
+        <option value="Triathlon">
+        <option value="Tricking">
+        <option value="Trottinette">
+        <option value="Tumbling">
+        <option value="Twirling baton">
+        <option value="ULM">
+        <option value="Ultimate">
+        <option value="Ultimate fresbee">
+        <option value="Varappe">
+        <option value="Vélo">
+        <option value="Voile">
+        <option value="Volleyball">
+        <option value="Voltige">
+        <option value="Vovinam Viet Vo Dao">
+        <option value="VTT">
+        <option value="Wakeboard">
+        <option value="Waterpolo">
+        <option value="Watfit">
+        <option value="Wing chun">
+        <option value="Wingsuit">
+        <option value="Yoga">
+        <option value="Yoseikan budo">
+        <option value="Yukigassen">
+        <option value="Zumba">
+    </datalist>
+    
+    <datalist class="autocomplete-items"id="villes-list">
+        <option value="Napierville">
+        <option value="Saint-Cyprien-de-Napierville">
+        <option value="Hemmingford">
+        <option value="Saint-Bernard-de-Lacolle">
+        <option value="Saint-Paul-de-l'Île-aux-Noix">
+        <option value="Saint-Blaise-sur-Richelieu">
+        <option value="Saint-Jacques-le-Mineur">
+        <option value="Saint-Valentin">
+    </datalist>
+
+    <datalist class="autocomplete-items" id="liens-list">
+        <option value="Père">
+        <option value="Mère">
+        <option value="Oncle">
+        <option value="Tante">
+        <option value="Cousin">
+        <option value="Cousine">
+        <option value="Grand-Père">
+        <option value="Grand-Mère">
+        <option value="Autre(Parent)">
+        <option value="Autre(Proffessionnel(le))">
+        <option value="Tuteur">
+    </datalist>
+
+    <footer>
+        <div class="footer-logos-left">
+            <a href="https://www.coupdoeil.info/actualites/bourses-de-soutien-a-la-releve-sportive-de-larena-regional-lareau-les-candidatures-acceptees-jusquau-8-septembre/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Voir l'article sur Coup d'œil">
+                <img src="images/logo-coup-doeil.png" alt="Logo Coup d'œil" onerror="this.style.display='none'; this.alt='Erreur logo Coup doeil';">
+            </a>
+            <a href="https://www.desjardins.com/qc/fr.html" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Desjardins">
+                <img src="images/desjardins.png" alt="Logo Desjardins" onerror="this.style.display='none'; this.alt='Erreur logo Desjardins';">
+            </a>
+            <a href="https://csrlc.ca/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Aréna Régional Lareau">
+                <img src="images/arena.png" alt="Logo Aréna Régional Lareau" onerror="this.style.display='none'; this.alt='Erreur logo Aréna';">
+            </a>
+            <a href="https://www.facebook.com/arenaregionallareau" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Facebook Aréna Régional Lareau">
+                <i class="fab fa-facebook"></i>
+            </a>
+        </div>
+        <div class="footer-content-center">
+            <div class="footer-text">
+                Date de l'inscription : <span class="clickable-date" id="calendarEvent">27 octobre au 21 novembre 2025</span><br>
+                Location ; <a href="https://www.google.com/maps/place/50+Rue+de+l'Aqueduc,+Napierville,+QC+J0J+1L0/@45.1925621,-73.405976,17z/data=!3m1!4b1!4m6!3m5!1s0x4cc99c4fe6125c81:0xfa62b2f92497e296!8m2!3d45.1925621!4d-73.4034011!16s%2Fg%2F1v8x1tg4?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Aréna régionale Lareau - 50 rue de l'Aqueduc, Napierville, Québec, J0J 1L0</a><br>
+                Courriel : <a href="mailto:glaplante@csrlc.ca?subject=Bourses%20sportive%20-%20autres">glaplante@csrlc.ca</a>
+            </div>
+        </div>
+        <div class="footer-logos-right">
+            <a href="https://www.napierville.ca/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Napierville">
+                <img src="images/napierville.png" alt="Logo Napierville" onerror="this.style.display='none'; this.alt='Erreur logo Napierville';">
+            </a>
+            <a href="https://www.st-cypriendenapierville.com/accueil" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Saint-Cyprien-de-Napierville">
+                <img src="images/saint-cyprien.png" alt="Logo Saint-Cyprien" onerror="this.style.display='none'; this.alt='Erreur logo St-Cyprien';">
+            </a>
+            <a href="https://municipalite.saint-valentin.qc.ca/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Saint-Valentin">
+                <img src="images/saint-valentin.png" alt="Logo Saint-Valentin" onerror="this.style.display='none'; this.alt='Erreur logo St-Valentin';">
+            </a>
+            <a href="https://www.canton.hemmingford.ca/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Hemmingford (Canton)">
+                <img src="images/hemmingford.png" alt="Logo Hemmingford (Canton)" onerror="this.style.display='none'; this.alt='Erreur logo Hemmingford';">
+            </a>
+            <a href="https://www.saint-jacques-le-mineur.ca/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Saint-Jacques-le-Mineur">
+                <img src="images/saint-jacques.png" alt="Logo Saint-Jacques-le-Mineur" onerror="this.style.display='none'; this.alt='Erreur logo St-Jacques';">
+            </a>
+            <a href="https://www.st-blaise.ca/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Saint-Blaise-sur-Richelieu">
+                <img src="images/saint-blaise.png" alt="Logo Saint-Blaise-sur-Richelieu" onerror="this.style.display='none'; this.alt='Erreur logo St-Blaise';">
+            </a>
+             <a href="https://www.ileauxnoix.com/fr/index.html" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Saint-Paul-de-l'Île-aux-Noix">
+                <img src="images/saint-paul.png" alt="Logo Saint-Paul-de-l'Île-aux-Noix" onerror="this.style.display='none'; this.alt='Erreur logo St-Paul';">
+            </a>
+            <a href="https://www.municipalite-de-saint-bernard-de-lacolle.ca/" target="_blank" rel="noopener noreferrer" class="footer-logo-link" title="Saint-Bernard-de-Lacolle">
+                <img src="images/saint-bernard.png" alt="Logo Saint-Bernard-de-Lacolle" onerror="this.style.display='none'; this.alt='Erreur logo St-Bernard';">
+            </a>
+        </div>
+    </footer>
+
+    <script>
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollToBottom() {
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            let hasAttemptedSubmit = false;
+            const form = document.getElementById('bourseSurveyForm');
+            const sendBtn = document.getElementById('btnSend');
+            const feedbackDiv = document.getElementById('feedbackMessage');
+            const candidatNomInput = document.getElementById('candidatNom');
+            const parentNomInput = document.getElementById('parentNom');
+            const candidatTelInput = document.getElementById('candidatTel');
+            const parentTelInput = document.getElementById('parentTel');
+            const sportInput = document.getElementById('candidatSport');
+            const candidatVilleInput = document.getElementById('candidatVille');
+            const parentVilleInput = document.getElementById('parentVille');
+            const parentLienInput = document.getElementById('parentLien');
+            const qAutresTextarea = document.getElementById('qAutres');
+            
+            const EVENT_START_DATE = new Date('2025-10-27T00:00:00');
+            const EVENT_END_DATE = new Date('2025-11-21T23:59:59');
+
+            const MIN_DOB = new Date(EVENT_START_DATE.getFullYear() - 18, EVENT_START_DATE.getMonth(), EVENT_START_DATE.getDate() + 1);
+            const MAX_DOB = new Date(EVENT_END_DATE.getFullYear() - 8, EVENT_END_DATE.getMonth(), EVENT_END_DATE.getDate());
+
+            const MONTH_NAMES = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+            const DAY_NAMES_SHORT = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+        
+            const calendarLink = document.getElementById('calendarEvent');
+            const calendarModal = document.getElementById('calendarModal');
+            const closeCalendarModalBtn = document.getElementById('closeCalendarModalBtn');
+
+            const altTooltip = document.createElement('div');
+            altTooltip.className = 'alt-tooltip';
+            altTooltip.id = 'alt-tooltip';
+            document.body.appendChild(altTooltip);
+
+            document.querySelectorAll('.sports-icons a').forEach(link => {
+                const icon = link.querySelector('i');
+                if (icon) {
+                    const altText = icon.getAttribute('alt') || icon.getAttribute('title') || 'Sport';
+                
+                    link.addEventListener('mouseenter', function(e) {
+                        altTooltip.textContent = altText;
+                        altTooltip.classList.add('visible');
+                    
+                        updateTooltipPosition(e);
+                    });
+    
+                    link.addEventListener('mouseleave', function() {
+                        altTooltip.classList.remove('visible');
+                    });
+            
+                    link.addEventListener('mousemove', function(e) {
+                        updateTooltipPosition(e);
+                    });
+                }
+            });
+            
+            function updateTooltipPosition(e) {
+                const tooltip = document.getElementById('alt-tooltip');
+                const offset = 15;
+            
+                tooltip.style.left = (e.pageX + offset) + 'px';
+                tooltip.style.top = (e.pageY + offset) + 'px';
+            
+                const tooltipRect = tooltip.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+            
+                if (e.pageX + tooltipRect.width + offset > windowWidth) {
+                    tooltip.style.left = (e.pageX - tooltipRect.width - offset) + 'px';
+                }
+            
+                if (e.pageY + tooltipRect.height + offset > windowHeight) {
+                    tooltip.style.top = (e.pageY - tooltipRect.height - offset) + 'px';
+                }
+            }
+
+            const sportsList = [
+                "accrobranche", "acrosport", "aerobic", "aéromodélisme", "aérostation", "agility", "aikido", "airsoft", "alpinisme", "apnée", "aquabike", "aquagym", "arts du cirque", "athlétisme", "aviation", "aviron", "babyfoot", "badminton", "ballon-balais", "ball-trap", "bandy", "base jump", "baseball", "basketball", "beach soccer", "beach tennis", "beach volley", "béhourd", "biathlon", "billard", "bmx", "bobsleigh", "boccia", "bodyboard", "bodybuilding", "boomerang", "bouzkachi", "bowling", "boxe", "boxe anglaise", "boxe chinoise", "boxe française", "boxe thaïlandaise", "bras de fer", "bridge", "caber", "calcio florentin", "canicross", "canne de combat", "canoë", "canoë-kayak", "canyoning", "canyonisme", "capoeira", "carrom", "catch", "chanbara", "char à voile", "chase tag", "cheerleading", "cirque", "claquettes", "combat", "corde à sauter", "course", "course à pied", "course aérienne", "course camarguaise", "course d'obstacles", "course d'orientation", "course de cote", "course de drones", "course landaise", "cricket", "croquet", "cross training", "cross-country", "crosse", "crossfit", "curling", "cyclisme", "cyclisme artistique", "cyclisme sur piste", "cyclisme sur route", "cyclo cross", "cyclotourisme", "danse", "danse africaine", "danse classique", "danse contemporaine", "danse country", "danse indienne", "danse orientale", "danse rock", "danse sportive", "danse sur glace", "décathlon", "deltaplane", "disc golf", "dragon boat", "dragster", "e-sport", "echecs", "enduro", "equitation", "escalade", "escrime", "extreme football league", "fierljeppen", "fitminton", "fitness", "flag", "flamenco", "fléchettes", "floorball", "football", "football américain", "football australien", "footgolf", "footing", "footpool", "force athlétique", "full contact", "funboard", "futsal", "giraviation", "golf", "gouren", "grappling", "gymkhana", "gymnastique", "gymnastique artistique", "gymnastique rythmique", "haltérophilie", "handball", "handisport", "hapkido", "heptathlon", "hip hop", "hockey", "hockey subaquatique", "hockey sur gazon", "hockey sur glace", "horse ball", "hurling", "iaïdo", "ice cross", "indiaca", "indycar", "jetski", "jett kune do", "jianzi", "jodo", "jorkyball", "joutes", "ju-jitsu", "judo", "kabaddi", "kalarippayatt", "kali arnis eskrima", "karaté", "karting", "kayak", "kempo", "kendo", "kenjutsu", "kick boxing", "kin ball", "kitesurf", "kobudo", "korfbal", "krav-maga", "kung fu", "kyokushinkai", "kyudo", "lancer du javelot", "lancer du marteau", "lancer du poids", "lawn bowl", "luge", "lutte", "marathon", "marche", "marche aquatique", "marche athlétique", "marche nordique", "marche sportive", "mma", "monocycle", "moto", "moto cross", "moto-ball", "motoneige", "mountainboard", "musculation", "naginata", "natation", "natation synchronisée", "netball", "ninjitsu", "nunchaku", "octathlon", "omnikin", "paddle", "padel", "paintball", "pancrace", "parachutisme", "paramoteur", "parapente", "parkour", "patinage", "patinage artistique", "patinage de vitesse", "pêche", "pelote basque", "pelote valencienne", "pencak-silat", "pentathlon", "pesäpallo", "pétanque", "peteca", "pilates", "ping pong", "planche à voile", "plongée", "plongeon", "pole dance", "polo", "qi gong", "quad", "quilles", "qwan ki do", "raffa volo", "rafting", "ragga", "raid", "rallycross", "rallye", "randonnée", "rink hockey", "rock", "rodéo", "roller", "roller derby", "rugby", "rugby subaquatique", "salsa", "samba", "sambo", "sarbacane", "saut à la perche", "saut en longueur", "sauvetage", "self défense", "sepak takraw", "skateboard", "skeleton", "ski", "ski acrobatique", "ski alpin", "ski de fond", "ski nautique", "skicross", "slackline", "slamball", "snorkeling", "snowboard", "snowkite", "softball", "speed riding", "spéléologie", "spinning", "squash", "step", "stretching", "sumo", "surf", "taekwondo", "taï chi", "tambourin", "tango", "tchoukball", "tennis", "tennis de table", "teqball", "tir", "tir à l'arc", "tractor pulling", "trail", "traîneaux", "trampoline", "trapèze", "triathlon", "tricking", "trottinette", "tumbling", "twirling baton", "ulm", "ultimate", "ultimate fresbee", "varappe", "vélo", "voile", "volleyball", "voltige", "vovinam viet vo dao", "vtt", "wakeboard", "waterpolo", "watfit", "wing chun", "wingsuit", "yoga", "yoseikan budo", "yukigassen", "zumba"
+            ];
+            const sportsSet = new Set(sportsList.map(s => s.toLowerCase()));
+            
+            const villesList = [
+                "napierville", "saint-cyprien-de-napierville", "hemmingford", "saint-bernard-de-lacolle", "saint-paul-de-l'île-aux-noix", "saint-blaise-sur-richelieu", "saint-jacques-le-mineur", "saint-valentin"
+            ];
+            const villesSet = new Set(villesList.map(s => s.toLowerCase()));
+
+            const liensList = [
+                "Père", "Mère", "Oncle", "Tante", "Cousin", "Cousine", "Grand-Père", "Grand-Mère", "Autre(Parent)", "Autre(Proffessionnel(le))", "Tuteur"
+            ];
+            const liensSet = new Set(liensList.map(s => s.toLowerCase()));
+
+            const lienDisplay = Array.from(document.querySelectorAll('#liens-list option')).map(o => o.value).filter(Boolean);
+            const sportsDisplay = Array.from(document.querySelectorAll('#sports-list option')).map(o => o.value).filter(Boolean).sort((a,b)=> a.localeCompare(b,'fr'));
+            const villesDisplay = Array.from(document.querySelectorAll('#villes-list option')).map(o => o.value).filter(Boolean).sort((a,b)=> a.localeCompare(b,'fr'));
+
+            function normalizeForSearch(str) {
+                if (!str) return '';
+                try {
+                    return str.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+                } catch (e) {
+                    return str.normalize ? str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() : str.toLowerCase();
+                }
+            }
+
+            const allAutocompleteContainers = [];
+
+            document.addEventListener('click', function(e) {
+                let clickedOnAutocompleteInput = [candidatVilleInput, parentVilleInput, sportInput, parentLienInput].includes(e.target);
+                
+                if (clickedOnAutocompleteInput) {
+                    return;
+                }
+
+                if (e.target.closest('.autocomplete-item')) {
+                    return;
+                }
+
+                allAutocompleteContainers.forEach(c => {
+                    c.innerHTML = '';
+                    c.style.display = 'none';
+                });
+            });
+
+            function attachAutocomplete(input, displayList) {
+                input.setAttribute('autocomplete', 'off');
+                const container = document.createElement('div');
+                container.className = 'autocomplete-items';
+                container.style.display = 'none';
+                input.parentElement.appendChild(container);
+                allAutocompleteContainers.push(container);
+
+                let currentFocus = -1;
+
+                function closeList() {
+                    container.innerHTML = '';
+                    container.style.display = 'none';
+                    currentFocus = -1;
+                }
+
+                function closeAllOtherLists() {
+                    allAutocompleteContainers.forEach(c => {
+                        if (c !== container) {
+                            c.innerHTML = '';
+                            c.style.display = 'none';
+                        }
+                    });
+                }
+
+                function renderList(items, query) {
+                    container.innerHTML = '';
+                    if (!items || items.length === 0) {
+                        closeList();
+                        return;
+                    }
+                    items.forEach((text, idx) => {
+                        const item = document.createElement('div');
+                        item.className = 'autocomplete-item';
+
+                        const qNorm = normalizeForSearch(query);
+                        const textNorm = normalizeForSearch(text);
+                        const startIndex = textNorm.indexOf(qNorm);
+
+                        if (qNorm.length > 0 && startIndex > -1) {
+                            const endIndex = startIndex + qNorm.length;
+                            item.innerHTML = text.substring(0, startIndex) +
+                                             '<strong>' + text.substring(startIndex, endIndex) + '</strong>' +
+                                             text.substring(endIndex);
+                        } else {
+                            item.textContent = text;
+                        }
+
+                        item.dataset.value = text;
+                        item.addEventListener('mousedown', function(e) {
+                            e.preventDefault();
+                            input.value = this.dataset.value;
+                            validateField(input);
+                            closeList();
+                        });
+                        container.appendChild(item);
+                    });
+                    closeAllOtherLists();
+                    container.style.display = 'block';
+                    currentFocus = -1;
+                }
+
+                function updateMatches() {
+                    const q = input.value || '';
+                    const qNorm = normalizeForSearch(q.trim());
+                    let matches;
+                    if (qNorm === '') {
+                        matches = displayList.slice();
+                    } else {
+                        matches = displayList.filter(d => normalizeForSearch(d).includes(qNorm));
+                    }
+                    matches.sort((a,b)=> a.localeCompare(b,'fr'));
+                    renderList(matches, q);
+                }
+
+                input.addEventListener('input', function() {
+                    updateMatches();
+                });
+
+                input.addEventListener('focus', function() {
+                    closeAllOtherLists();
+                    updateMatches();
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    const items = container.querySelectorAll('.autocomplete-item');
+                    if (items.length === 0) return;
+
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        currentFocus = (currentFocus + 1) % items.length;
+                        setActive(items, currentFocus);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        currentFocus = (currentFocus - 1 + items.length) % items.length;
+                        setActive(items, currentFocus);
+                    } else if (e.key === 'Enter') {
+                        if (currentFocus > -1 && items[currentFocus]) {
+                            e.preventDefault();
+                            items[currentFocus].dispatchEvent(new MouseEvent('mousedown'));
+                        } else {
+                            closeList();
+                            validateField(input);
+                        }
+                    } else if (e.key === 'Escape') {
+                        closeList();
+                    }
+                });
+
+                function setActive(items, idx) {
+                    items.forEach(it => it.classList.remove('active'));
+                    if (items[idx]) items[idx].classList.add('active');
+                    if (items[idx] && container.scrollHeight > container.clientHeight) {
+                        const itemTop = items[idx].offsetTop;
+                        const itemBottom = itemTop + items[idx].offsetHeight;
+                        if (itemBottom > container.scrollTop + container.clientHeight) {
+                            container.scrollTop = itemBottom - container.clientHeight;
+                        } else if (itemTop < container.scrollTop) {
+                            container.scrollTop = itemTop;
+                        }
+                    } 
+                }
+            }
+
+            attachAutocomplete(candidatVilleInput, villesDisplay);
+            attachAutocomplete(parentVilleInput, villesDisplay);
+            attachAutocomplete(sportInput, sportsDisplay);
+            attachAutocomplete(parentLienInput, lienDisplay);
+
+            const textareas = [
+                { id: 'qSport', countId: 'qSportCount', min: 20, max: 500, section: 'questions-section' },
+                { id: 'qAmbitions', countId: 'qAmbitionsCount', min: 20, max: 500, section: 'questions-section' },
+                { id: 'qFierte', countId: 'qFierteCount', min: 20, max: 500, section: 'questions-section' },
+                { id: 'qBesoins', countId: 'qBesoinsCount', min: 20, max: 500, section: 'questions-section' },
+                { id: 'qAutres', countId: 'qAutresCount', min: 0, max: 500, section: 'questions-section' }
+            ];
+
+            textareas.forEach(taInfo => {
+                const textarea = document.getElementById(taInfo.id);
+                const countSpan = document.getElementById(taInfo.countId);
+                const counterDiv = countSpan.parentElement;
+
+                if (taInfo.id !== 'qAutres') {
+                    textarea.addEventListener('paste', (e) => e.preventDefault());
+                }
+
+                textarea.addEventListener('input', () => {
+                    const count = textarea.value.length;
+                    countSpan.textContent = count;
+                    counterDiv.classList.remove('limit-near', 'limit-exceeded');
+                    validateField(textarea);
+                });
+                
+                if(taInfo.id === 'qAutres') {
+                     textarea.addEventListener('focus', () => {
+                         if (!textarea.classList.contains('valid')) {
+                             textarea.style.borderColor = '#3498db';
+                             textarea.style.boxShadow = '0 0 0 2px rgba(52, 152, 219, 0.2)';
+                         }
+                     });
+                     textarea.addEventListener('blur', () => {
+                          if (!textarea.classList.contains('valid') && !textarea.classList.contains('invalid')) {
+                             textarea.style.borderColor = 'var(--border-color)';
+                             textarea.style.boxShadow = 'none';
+                         }
+                     });
+                     textarea.addEventListener('input', () => {
+                         if(textarea.value.length >= 5) {
+                             textarea.classList.add('valid');
+                             textarea.style.borderColor = '';
+                             textarea.style.boxShadow = '';
+                         } else if (textarea.value.length > 0) {
+                              textarea.classList.remove('valid');
+                              textarea.style.borderColor = '#3498db';
+                              textarea.style.boxShadow = '0 0 0 2px rgba(52, 152, 219, 0.2)';
+                         } else {
+                             textarea.classList.remove('valid', 'invalid');
+                             textarea.style.borderColor = 'var(--border-color)';
+                             textarea.style.boxShadow = 'none';
+                         }
+                     });
+                }
+                
+                countSpan.textContent = textarea.value.length;
+            });
+            
+            form.querySelectorAll('input, select').forEach(field => {
+                field.addEventListener('input', () => validateField(field));
+                field.addEventListener('change', () => validateField(field));
+            });
+
+
+            function formatPhoneNumber(input) {
+                let value = input.value.replace(/\D/g, '');
+                let formattedValue = '';
+                if (value.length > 0) {
+                    formattedValue += value.substring(0, 3);
+                }
+                if (value.length > 3) {
+                    formattedValue += '-' + value.substring(3, 6);
+                }
+                if (value.length > 6) {
+                    formattedValue += '-' + value.substring(6, 10);
+                }
+                input.value = formattedValue;
+            }
+
+            candidatTelInput.addEventListener('input', () => formatPhoneNumber(candidatTelInput));
+            parentTelInput.addEventListener('input', () => formatPhoneNumber(parentTelInput));
+
+            function showTooltip(field, message) {
+                 field.classList.add('invalid');
+                 field.classList.remove('valid');
+                 const tooltip = field.nextElementSibling;
+                 if (tooltip && tooltip.classList.contains('tooltip')) {
+                     tooltip.textContent = message;
+                 }
+                 const title = document.querySelector(`label[for="${field.id}"].question-title`);
+                 if(title) title.classList.remove('title-valid');
+             }
+
+            function hideTooltip(field) {
+                  field.classList.remove('invalid');
+                  const tooltip = field.nextElementSibling;
+                  if (tooltip && tooltip.classList.contains('tooltip')) {
+                     tooltip.textContent = '';
+                 }
+             }
+             
+            function setFieldValid(field) {
+               field.classList.remove('invalid');
+               field.classList.add('valid');
+               hideTooltip(field); 
+               const title = document.querySelector(`label[for="${field.id}"].question-title`);
+               if(title) title.classList.add('title-valid');
+           }
+           
+            function validateSection(sectionId) {
+                if (!sectionId || !form) return;
+                const sectionFields = form.querySelectorAll(`[data-section="${sectionId}"][required]`);
+                let allValid = true;
+               
+                sectionFields.forEach(field => {
+                    if (!field.classList.contains('valid')) {
+                        allValid = false;
+                    }
+                });
+               
+                const sectionTitle = document.querySelector(`h2[data-section-id="${sectionId}"]`);
+                if (sectionTitle) {
+                    if (allValid) {
+                        sectionTitle.classList.add('title-valid');
+                    } else {
+                        sectionTitle.classList.remove('title-valid');
+                    }
+                }
+            }
+           
+            function validateField(field) {
+                let fieldValid = true;
+                let errorMessage = `${field.labels[0]?.textContent?.replace(':', '').trim() || 'Ce champ'} est requis.`;
+               
+                const value = field.value;
+                const trimmedValue = value.trim();
+                const id = field.id;
+
+                if (field.hasAttribute('required') && !trimmedValue) {
+                    fieldValid = false;
+                }
+                else if (trimmedValue.length > 0 || !field.hasAttribute('required')) 
+                {
+                    switch (id) {
+                        case 'candidatNom':
+                        case 'parentNom':
+                            const spaces = (value.match(/ /g) || []).length;
+                            const hyphens = (value.match(/-/g) || []).length;
+                            
+                            if (trimmedValue.length < 8 || trimmedValue.length > 50) {
+                                fieldValid = false;
+                                errorMessage = 'Doit contenir entre 8 et 50 caractères.';
+                            } else if (spaces < 1 || spaces > 3) {
+                                fieldValid = false;
+                                errorMessage = 'Doit contenir entre 1 et 3 espaces.';
+                            } else if (hyphens > 2) {
+                                fieldValid = false;
+                                errorMessage = 'Ne peut contenir plus de 2 traits d\'union.';
+                            }
+                            break;
+      
+                        case 'candidatTel':
+                        case 'parentTel':
+                            if (!/^\d{3}-\d{3}-\d{4}$/.test(trimmedValue)) {
+                                fieldValid = false;
+                                errorMessage = 'Format invalide. Doit être ###-###-####.';
+                            }
+                            break;
+        
+                        case 'candidatSport':
+                            if (!sportsSet.has(trimmedValue.toLowerCase())) {
+                                fieldValid = false;
+                                 errorMessage = 'Veuillez sélectionner un sport valide de la liste.';
+                            }
+                            break;
+       
+                        case 'candidatVille':
+                        case 'parentVille':
+                            if (!villesSet.has(trimmedValue.toLowerCase().replace(/\s/g, '-'))) {
+                                fieldValid = false;
+                                errorMessage = 'Veuillez entrer une ville participante valide.';
+                            }
+                            break;
+    
+                        case 'parentLien':
+                            if (!liensSet.has(trimmedValue.toLowerCase())) {
+                                fieldValid = false;
+                                errorMessage = 'Veuillez sélectionner un lien parental valide.';
+                            }
+                            break;
+                    }
+
+                    if (field.tagName === 'TEXTAREA' && field.hasAttribute('minlength') && id !== 'qAutres') {
+                        const min = parseInt(field.getAttribute('minlength'));
+                        const max = parseInt(field.getAttribute('maxlength'));
+                       
+                        if (trimmedValue.length > 0 && trimmedValue.length < min) {
+                            fieldValid = false;
+                            errorMessage = `Minimum ${min} caractères requis. (Actuel: ${trimmedValue.length})`;
+                        } else if (trimmedValue.length > max) {
+                            fieldValid = false;
+                            errorMessage = `Maximum ${max} caractères dépassé. (Actuel: ${trimmedValue.length})`;
+                        }
+                       
+                        if (field.hasAttribute('required') && trimmedValue.length === 0) {
+                           fieldValid = false;
+                           errorMessage = `Minimum ${min} caractères requis.`;
+                        }
+                    }
+                }
+      
+                if (field.hasAttribute('required')) {
+                    if (fieldValid) {
+                        setFieldValid(field);
+                    } else {
+                        field.classList.remove('valid');
+                        const title = document.querySelector(`label[for="${field.id}"].question-title`);
+                        if(title) title.classList.remove('title-valid');
+                        
+                        if (hasAttemptedSubmit) {
+                            showTooltip(field, errorMessage);
+                        } else {
+                            hideTooltip(field);
+                        }
+                    }
+                } else {
+                     field.classList.remove('invalid');
+                    
+                     if (id === 'qAutres') {
+                         field.classList.remove('valid');
+                         
+                        if (trimmedValue.length > 0) {
+                            field.style.borderColor = '#3498db';
+                            field.style.boxShadow = '0 0 0 2px rgba(52, 152, 219, 0.2)';
+                        } else {
+                            if (document.activeElement !== field) {
+                                field.style.borderColor = '';
+                                field.style.boxShadow = '';
+                            }
+                        }
+                    } else {
+                         field.classList.remove('valid');
+                    }
+                    hideTooltip(field);
+               }
+               validateSection(field.dataset.section);
+           }
+      
+          function validateForm(showErrors) {
+               hasAttemptedSubmit = !!showErrors;
+      
+               if (showErrors && feedbackDiv) {
+                   feedbackDiv.style.display = 'none';
+                   feedbackDiv.textContent = '';
+                   feedbackDiv.className = 'mt-4 p-3 rounded text-center'; 
+               }
+      
+               let isValid = true;
+               if (!form) return false;
+               
+               const requiredFields = Array.from(form.querySelectorAll('[required]'));
+               let firstErrorField = null;
+      
+               requiredFields.forEach(field => {
+                   validateField(field);
+                   if (field.classList.contains('invalid')) {
+                       isValid = false;
+                       if (!firstErrorField) firstErrorField = field;
+                   }
+               });
+               
+               validateSection('candidat-section');
+               validateSection('parent-section');
+               validateSection('questions-section');
+      
+               if (!isValid && showErrors) {
+                    if (typeof displayFeedback === 'function') {
+                        displayFeedback('Veuillez corriger les erreurs indiquées.', 'error');
+                    } else if (feedbackDiv) {
+                        feedbackDiv.textContent = 'Veuillez corriger les erreurs indiquées.';
+                        feedbackDiv.style.display = 'block';
+                        feedbackDiv.style.color = 'var(--error-color)';
+                        feedbackDiv.style.fontWeight = 'bold';
+                    }
+                    
+                    if (firstErrorField) {
+                        firstErrorField.focus();
+                         const fieldRect = firstErrorField.getBoundingClientRect();
+                         window.scrollTo({ top: window.pageYOffset + fieldRect.top - 100, behavior: 'smooth' });
+                    }
+               }
+               return isValid;
+            }
+
+            function displayFeedback(message, type = 'info') {
+                 feedbackDiv.textContent = message;
+                 feedbackDiv.className = 'mt-4 p-3 rounded text-center';
+                 if (type === 'success') {
+                     feedbackDiv.classList.add('bg-green-100', 'text-green-800', 'border', 'border-green-300');
+                 } else if (type === 'error') {
+                     feedbackDiv.classList.add('bg-red-100', 'text-red-800', 'border', 'border-red-300');
+                 } else if (type === 'warning') {
+                     feedbackDiv.classList.add('bg-yellow-100', 'text-yellow-800', 'border', 'border-yellow-300');
+                 } else {
+                     feedbackDiv.classList.add('bg-blue-100', 'text-blue-800', 'border', 'border-blue-300');
+                 }
+                 feedbackDiv.style.display = 'block';
+                 setTimeout(() => { feedbackDiv.style.display = 'none'; }, type === 'error' || type === 'warning' ? 6000 : 4000);
+            }
+
+            function generateEventCalendar(year, month, containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+            
+                container.innerHTML = '';
+                const monthFullNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+                const dayFullNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDay = firstDay.getDay();
+
+                let html = `<div class="calendar-header">${monthFullNames[month]} ${year}</div>`;
+                html += `<div class="calendar-grid">`;
+
+                dayFullNames.forEach(day => html += `<div class="day-header">${day.substring(0, 3)}</div>`);
+
+                for (let i = 0; i < startingDay; i++) {
+                    html += `<div></div>`;
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const currentDate = new Date(year, month, day, 12, 0, 0);
+                    let classes = 'day-cell';
+                
+                    if (currentDate >= EVENT_START_DATE && currentDate <= EVENT_END_DATE) {
+                        classes += ' highlighted';
+                    } else {
+                        classes += ' not-highlighted';
+                    }
+                    html += `<div class="${classes}"><span>${day}</span></div>`;
+                }
+                html += `</div>`;
+                container.innerHTML = html;
+            }
+
+            if (calendarLink && calendarModal && closeCalendarModalBtn) {
+                calendarLink.addEventListener('click', () => {
+                    generateEventCalendar(2025, 9, 'calendarOct');
+                    generateEventCalendar(2025, 10, 'calendarNov');
+                    calendarModal.classList.add('active');
+                });
+
+                closeCalendarModalBtn.addEventListener('click', () => {
+                    calendarModal.classList.remove('active');
+                });
+            
+            calendarModal.addEventListener('click', (e) => {
+                if (e.target === calendarModal) {
+                    calendarModal.classList.remove('active');
+                }
+            });
+        }
+
+        const dobInput = document.getElementById('candidatDob');
+        const dobIcon = document.getElementById('calendarLink');
+        const dobPopup = document.getElementById('dob-calendar-popup');
+        const dobPrevBtn = document.getElementById('dob-prev-btn');
+        const dobNextBtn = document.getElementById('dob-next-btn');
+        const dobDisplay = document.getElementById('dob-current-display');
+        const dobGrid = document.getElementById('dob-calendar-grid');
+
+        let currentView = 'year';
+        let currentYear = MAX_DOB.getFullYear();
+        let currentMonth = MAX_DOB.getMonth();
+        let currentYearBlock = currentYear;
+
+        function showDobCalendar() {
+            dobPopup.classList.add('active');
+            renderDobCalendar();
+        }
+
+        function hideDobCalendar() {
+            dobPopup.classList.remove('active');
+        }
+
+        function renderDobCalendar() {
+            dobGrid.innerHTML = '';
+            dobGrid.className = 'dob-grid';
+
+            switch (currentView) {
+                case 'year':
+                    renderYearView();
+                    break;
+                case 'month':
+                    renderMonthView();
+                    break;
+                case 'day':
+                    renderDayView();
+                    break;
+            }
+        }
+
+        function renderYearView() {
+            currentView = 'year';
+            dobGrid.classList.add('year-view');
+            dobDisplay.innerText = `${currentYearBlock - 5} - ${currentYearBlock + 6}`;
+            dobGrid.innerHTML = '';
+            
+            for (let i = 0; i < 12; i++) {
+                const year = currentYearBlock - 5 + i;
+                const cell = document.createElement('div');
+                cell.className = 'dob-cell year';
+                cell.innerHTML = `<span>${year}</span>`;
+                
+                // Check if this year is valid (i.e., contains any valid dates)
+                if (year >= MIN_DOB.getFullYear() && year <= MAX_DOB.getFullYear()) {
+                    cell.classList.add('valid');
+                    cell.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        currentYear = year;
+                        currentView = 'month';
+                        renderDobCalendar();
+                    });
+                } else {
+                    cell.classList.add('invalid');
+                }
+                dobGrid.appendChild(cell);
+            }
+        }
+
+        function renderMonthView() {
+            currentView = 'month';
+            dobGrid.classList.add('month-view');
+            dobDisplay.innerText = currentYear;
+            dobGrid.innerHTML = '';
+
+            for (let i = 0; i < 12; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'dob-cell month';
+                    cell.innerHTML = `<span>${MONTH_NAMES[i]}</span>`;
+
+                    const monthStart = new Date(currentYear, i, 1);
+                    const monthEnd = new Date(currentYear, i + 1, 0);
+                    monthEnd.setHours(23, 59, 59);
+
+                    if (monthStart > MAX_DOB || monthEnd < MIN_DOB) {
+                        cell.classList.add('invalid');
+                    } else {
+                        cell.classList.add('valid');
+                        cell.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            currentMonth = i;
+                            currentView = 'day';
+                            renderDobCalendar();
+                        });
+                    }
+                    dobGrid.appendChild(cell);
+                }
+            }
+
+            function renderDayView() {
+                currentView = 'day';
+                dobGrid.classList.add('day-view');
+                dobDisplay.innerText = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
+                dobGrid.innerHTML = '';
+
+                DAY_NAMES_SHORT.forEach(day => {
+                    const header = document.createElement('div');
+                    header.className = 'dob-cell dob-day-header';
+                    header.innerText = day;
+                    dobGrid.appendChild(header);
+                });
+
+                const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'dob-cell empty';
+                    dobGrid.appendChild(emptyCell);
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'dob-cell day';
+                    cell.innerHTML = `<span>${day}</span>`;
+                    const currentDate = new Date(currentYear, currentMonth, day, 12, 0, 0);
+
+                    if (currentDate >= MIN_DOB && currentDate <= MAX_DOB) {
+                        cell.classList.add('valid');
+                        cell.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            selectDate(currentDate);
+                        });
+                    } else {
+                        cell.classList.add('invalid');
+                    }
+                    dobGrid.appendChild(cell);
+                }
+            }
+        
+            function selectDate(date) {
+                dobInput.value = formatDate(date);
+                validateDobInput();
+                hideDobCalendar();
+            }
+
+            function formatDate(date) {
+                if (!date) return '';
+                const d = String(date.getDate()).padStart(2, '0');
+                const m = String(date.getMonth() + 1).padStart(2, '0');
+                const y = date.getFullYear();
+                return `${d}/${m}/${y}`;
+            }
+        
+            function parseDate(dateStr) {
+                const parts = dateStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+                if (!parts) return null;
+
+                const date = new Date(parts[3], parts[2] - 1, parts[1], 12, 0, 0);
+
+                if (date.getFullYear() == parts[3] && (date.getMonth() + 1) == parts[2] && date.getDate() == parts[1]) {
+                    return date;
+                }
+                return null;
+            }
+
+            function validateDobInput() {
+                const date = parseDate(dobInput.value);
+                if (date && date >= MIN_DOB && date <= MAX_DOB) {
+                    dobInput.classList.add('valid');
+                    dobInput.classList.remove('invalid');
+                    return true;
+                } else {
+                    dobInput.classList.add('invalid');
+                    dobInput.classList.remove('valid');
+                    return false;
+                }
+            }
+        
+            dobIcon.addEventListener('click', (e) => {
+                 e.stopPropagation();
+                 dobPopup.classList.contains('active') ? hideDobCalendar() : showDobCalendar();
+            });
+            dobInput.addEventListener('focus', showDobCalendar);
+            dobInput.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showDobCalendar();
+            });
+        
+            dobDisplay.addEventListener('click', () => {
+                if (currentView === 'day') {
+                    renderYearView();
+                } else if (currentView === 'month') {
+                    renderYearView();
+                }
+            });
+
+            dobPrevBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (currentView === 'year') {
+                    currentYearBlock -= 12;
+                } else if (currentView === 'month') {
+                    currentYear--;
+                } else if (currentView === 'day') {
+                    currentMonth--;
+                    if (currentMonth < 0) {
+                        currentMonth = 11;
+                        currentYear--;
+                    }
+                }
+                renderDobCalendar();
+            });
+
+            dobNextBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (currentView === 'year') {
+                    currentYearBlock += 12;
+                } else if (currentView === 'month') {
+                    currentYear++;
+                } else if (currentView === 'day') {
+                    currentMonth++;
+                    if (currentMonth > 11) {
+                        currentMonth = 0;
+                        currentYear++;
+                    }
+                }
+                renderDobCalendar();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!dobPopup.contains(e.target) && e.target !== dobInput && e.target !== dobIcon && !dobIcon.contains(e.target)) {
+                    hideDobCalendar();
+                }
+            });
+
+            dobInput.addEventListener('input', (e) => {
+                let val = e.target.value.replace(/\D/g, '');
+                if (val.length > 8) val = val.substring(0, 8);
+            
+                if (val.length > 4) {
+                    val = val.replace(/^(\d{2})(\d{2})/, '$1/$2/');
+                } else if (val.length > 2) {
+                    val = val.replace(/^(\d{2})/, '$1/');
+                }
+                e.target.value = val;
+            });
+        
+            dobInput.addEventListener('blur', () => {
+                validateDobInput();
+                const date = parseDate(dobInput.value);
+                if (date) {
+                    currentYear = date.getFullYear();
+                    currentMonth = date.getMonth();
+                    currentYearBlock = currentYear;
+                }
+            });
+
+            function getFormattedTimestamp(includeMs = false) {
+                const now = new Date();
+                const dd = String(now.getDate()).padStart(2, '0');
+                const mm = String(now.getMonth() + 1).padStart(2, '0');
+                const yyyy = now.getFullYear();
+                const HH = String(now.getHours()).padStart(2, '0');
+                const MM = String(now.getMinutes()).padStart(2, '0');
+                const SS = String(now.getSeconds()).padStart(2, '0');
+                const dayOfWeek = now.toLocaleDateString('fr-CA', { weekday: 'long' });
+                
+                if (includeMs) {
+                    const ms = String(now.getMilliseconds()).padStart(3, '0').charAt(0);
+                    return `"${dayOfWeek}-${dd}/${mm}/${yyyy}-${HH}:${MM}:${SS}.${ms}"`;
+                }
+                return `${dd}/${mm}/${yyyy} ${HH}:${MM}:${SS}`;
+            }
+
+            function getFilenameTimestamp() {
+                 const now = new Date();
+                 const dd = String(now.getDate()).padStart(2, '0');
+                 const mm = String(now.getMonth() + 1).padStart(2, '0');
+                 const yyyy = now.getFullYear();
+                 const hh = String(now.getHours()).padStart(2, '0');
+                 const min = String(now.getMinutes()).padStart(2, '0');
+                 return `${dd}-${mm}-${yyyy} ${hh}h${min}`;
+             }
+
+            function escapeCsvValue(value) {
+                 if (value === null || value === undefined) return '';
+                 let str = String(value);
+                 if (str.includes('') || str.includes('\n') || str.includes('"')) {
+                     str = str.replace(/"/g, '""');
+                     return `"${str}"`;
+                 }
+                 return str;
+            }
+             function formatDataRowForCsv() {
+                  console.log("formatDataRowForCsv: Début");
+                  const formElements = form.elements;
+                  const columnOrder = [ { id: 'candidatNom' }, { id: 'candidatVille' }, { id: 'candidatTel' }, { id: 'candidatDob' }, { id: 'candidatSport' }, { id: 'parentNom' }, { id: 'parentVille' }, { id: 'parentTel' }, { id: 'parentLien' }, { id: 'qSport' }, { id: 'qAmbitions' }, { id: 'qFierte' }, { id: 'qBesoins' }, { id: 'qAutres' } ];
+                  let rowData;
+                  try {
+                      rowData = columnOrder.map(col => {
+                          const element = formElements[col.id];
+                          if (!element) {
+                              console.warn(`Element non trouvé pour l'ID: ${col.id}`);
+                              return '';
+                          }
+                          return escapeCsvValue(element.value);
+                      });
+                  } catch (error) {
+                      console.error("Erreur dans map rowData:", error);
+                      throw new Error("Erreur lors de la lecture des données du formulaire.");
+                  }
+
+                  let timestamp;
+                  try {
+                      timestamp = getFormattedTimestamp(true);
+                  } catch (error) {
+                      console.error("Erreur dans getFormattedTimestamp:", error);
+                      throw new Error("Erreur lors de la génération de l'horodatage.");
+                  }
+
+                  const dataRow = [timestamp].concat(rowData);
+                  console.log("formatDataRowForCsv: Ligne CSV générée (début):", dataRow.join(';').substring(0, 100));
+                  return dataRow.join(';');
+             }
+             function formatQuestionsAndAnswers() {
+                 let qaString = "";
+                 const questions = [
+                     { id: 'candidatNom', labelSelector: 'label[for="candidatNom"]' },
+                     { id: 'candidatVille', labelSelector: 'label[for="candidatVille"]' },
+                     { id: 'candidatTel', labelSelector: 'label[for="candidatTel"]' },
+                     { id: 'candidatDob', labelSelector: 'label[for="candidatDob"]' },
+                     { id: 'candidatSport', labelSelector: 'label[for="candidatSport"]' },
+                     { id: 'parentNom', labelSelector: 'label[for="parentNom"]' },
+                     { id: 'parentVille', labelSelector: 'label[for="parentVille"]' },
+                     { id: 'parentTel', labelSelector: 'label[for="parentTel"]' },
+                     { id: 'parentLien', labelSelector: 'label[for="parentLien"]' },
+                     { id: 'qSport', labelSelector: 'label[for="qSport"].question-title' },
+                     { id: 'qAmbitions', labelSelector: 'label[for="qAmbitions"].question-title' },
+                     { id: 'qFierte', labelSelector: 'label[for="qFierte"].question-title' },
+                     { id: 'qBesoins', labelSelector: 'label[for="qBesoins"].question-title' },
+                     { id: 'qAutres', labelSelector: 'label[for="qAutres"].question-title' }
+                ];
+
+                questions.forEach(q => {
+                    const textarea = document.getElementById(q.id);
+                    const labelElement = document.querySelector(q.labelSelector);
+                    if (textarea && labelElement) {
+                        let labelText = labelElement.textContent || labelElement.innerText || "";
+                        const optionalSpan = labelElement.querySelector('span');
+                        if (optionalSpan) {
+                             labelText = labelText.replace(optionalSpan.textContent, "").trim();
+                        }
+                        labelText = labelText.trim().replace(/:$/, '');
+
+                        const answer = textarea.value || "-";
+                        qaString += `${labelText} :\n${answer}\n\n`;
+                    } else {
+                        console.warn(`Could not find textarea or label for question ID: ${q.id}`);
+                    }
+                });
+                return qaString.trim();
+            }
+
+             function sendFormattedEmail() {
+                 console.log("sendFormattedEmail: Démarrage");
+                 if (!validateForm(true)) {
+                     console.log("sendFormattedEmail: Validation échouée.");
+                     return;
+                 }
+                 console.log("sendFormattedEmail: Validation réussie.");
+
+                 if(sendBtn) sendBtn.disabled = true;
+
+                 let csvDataRow;
+                 let questionsAnswers;
+                 let candidatName;
+                 let timestampSubj;
+                 let subject;
+                 let body;
+                 let encodedSubject;
+                 let encodedBody;
+                 let mailtoLink;
+
+                 try {
+                     console.log("sendFormattedEmail: Appel de formatDataRowForCsv...");
+                     csvDataRow = formatDataRowForCsv();
+                     console.log("sendFormattedEmail: formatDataRowForCsv terminé.");
+                     console.log("sendFormattedEmail: Appel de formatQuestionsAndAnswers...");
+                     questionsAnswers = formatQuestionsAndAnswers();
+                     console.log("sendFormattedEmail: formatQuestionsAndAnswers terminé.");
+
+                     candidatName = candidatNomInput ? candidatNomInput.value : 'Inconnu';
+                     timestampSubj = getFormattedTimestamp(false);
+                     const recipient = "glaplante@csrlc.ca";
+                     subject = `Nouvelle Candidature Bourse Sportive - ${candidatName} - ${timestampSubj}`;
+
+                     const header1 = "====================================\n             Nouvelle Candidature\n====================================";
+                     const header2 = "====================================\n           Questions et Reponses :\n====================================";
+                     const footerEnd = "===================================="
+                     body = `${header1}\n\n${csvDataRow}\n\n${header2}\n\n${questionsAnswers}\n\n${footerEnd}`;
+
+                     console.log("sendFormattedEmail: Sujet brut:", subject);
+                     console.log("sendFormattedEmail: Corps brut (début):", body.substring(0, 6000));
+
+                     console.log("sendFormattedEmail: Encodage du sujet...");
+                     encodedSubject = encodeURIComponent(subject);
+                     console.log("sendFormattedEmail: Encodage du corps...");
+                     encodedBody = encodeURIComponent(body);
+                     console.log("sendFormattedEmail: Encodage terminé.");
+
+                     mailtoLink = `mailto:${recipient}?subject=${encodedSubject}&body=${encodedBody}`;
+
+                     console.log("sendFormattedEmail: Mailto link length:", mailtoLink.length);
+
+                     if (mailtoLink.length > 4800) {
+                         console.warn("sendFormattedEmail: Mailto link is very long, might exceed limits.");
+                         displayFeedback(`Les données sont trop longues (${mailtoLink.length} caractères) pour l'envoi direct par courriel. Veuillez contacter l'administrateur.`, 'warning', 8000);
+                         if(sendBtn) sendBtn.disabled = false;
+                         return;
+                     }
+
+                     console.log("sendFormattedEmail: Tentative d'ouverture du mailto link...");
+                     window.location.href = mailtoLink;
+                     displayFeedback(`Ouverture de votre client de messagerie pour envoyer les données...`, 'info', 5000);
+
+                     setTimeout(() => {
+                         console.log("sendFormattedEmail: Réactivation du bouton.");
+                         if(sendBtn) sendBtn.disabled = false;
+                     }, 1500);
+
+
+                 } catch (error) {
+                      console.error("Erreur détaillée dans sendFormattedEmail:", error);
+                      displayFeedback(`Erreur lors de la préparation de l'e-mail: ${error.message}`, 'error');
+                      if(sendBtn) sendBtn.disabled = false;
+                 }
+             }
+
+            
+             if (sendBtn) {
+                  sendBtn.addEventListener('click', () => {
+                      console.log("Bouton 'Soumettre' cliqué."); // DEBUG
+                      sendFormattedEmail();
+                  });
+             } else {
+                  console.error("Le bouton 'Soumettre' (btnSend) est introuvable!");
+             }
+            
+             validateForm(false);
+
+        });
+        
+    </script>
+
+</body>
+</html>
